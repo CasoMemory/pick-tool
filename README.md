@@ -1,2 +1,2 @@
-# pick-tool
-a pick data tool
+# pick-tool web project
+
