@@ -1,6 +1,38 @@
+@import '@alifd/next/dist/next.css';
+
 #root {
   padding: 12px;
   min-height: 100vh;
   background-color: #f5f5f5;
   box-sizing: border-box;
+}
+
+.box {
+  background-color: #fff;
+  padding: 12px;
+}
+
+.search-form {
+  .next-form-item {
+    width: 30%;
+    display: inline-flex;
+
+    &-label {
+      label {
+        margin: 5px 0;
+      }
+    }
+  }
+
+  &-bar {
+    text-align: center;
+
+    button {
+      margin: 0 4px;
+    }
+  }
+}
+
+.has-top {
+  margin-top: 12px;
 }
