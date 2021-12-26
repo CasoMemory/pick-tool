@@ -1,23 +1,34 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    'index': './src/index.tsx'
+  },
   devtool: 'inline-source-map',
-  mode: 'production',
+  mode: 'development',
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
     },
     watchFiles: ["src/**/*"],
     compress: true,
-    port: 3000,
+    port: 3000
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(css|scss|sass)$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ],
+        exclude: /node_modules/
       },
     ],
   },
@@ -25,7 +36,10 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDom'
+  }
 }
