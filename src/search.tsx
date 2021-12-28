@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Button, Form } from '@alifd/next'
+import useHooks from './hooks'
 
 const { Item } = Form
 
@@ -20,6 +21,7 @@ const defaultData = {
 
 const Search = () => {
   const [data, setData] = useState<DataProps>(defaultData)
+  const { dataSource, actions } = useHooks()
 
   // input change
   const handleInput = (val: any, key: string) => {
@@ -36,7 +38,7 @@ const Search = () => {
 
   // search data
   const handleSearch = () => {
-    console.log('data', data)
+    actions.fetchData(data)
   }
 
   return (

@@ -12,7 +12,20 @@ module.exports = {
     },
     watchFiles: ["src/**/*"],
     compress: true,
-    port: 3000
+    port: 3000,
+    proxy: {
+      '/fetchData': {
+        target: 'http://localhost:3001',
+        pathRewrite: {
+          '/fetchData': '/queryData'
+        },
+        secure: false
+      },
+      '/download': {
+        target: 'http://localhost:3001',
+        secure: false
+      }
+    }
   },
   module: {
     rules: [

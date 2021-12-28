@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "test": "",
-    "start": "webpack server --static --open",
+    "start": "node ./server/index.ts & webpack server --static --open",
     "build": "webpack"
   },
   "keywords": [
