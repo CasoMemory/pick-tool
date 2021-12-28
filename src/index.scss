@@ -10,6 +10,11 @@
 .box {
   background-color: #fff;
   padding: 12px;
+
+  &-operate {
+    margin-bottom: 12px;
+    text-align: right;
+  }
 }
 
 .search-form {

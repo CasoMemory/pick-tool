@@ -18,13 +18,13 @@ enum CredentialsEnum {
 
 interface RequestProps {
   url: string;
-  method?: MethodEnum,
+  method?: MethodEnum | string,
   mode?: ModeEnum,
   credentials?: CredentialsEnum
   headers?: {
     'Content-Type'?: string;
   },
-  body?: string;
+  body?: any;
 }
 
 export default async (params: RequestProps) => {
@@ -36,11 +36,14 @@ export default async (params: RequestProps) => {
     headers: { 'Content-Type': 'application/json' }
   }
 
+  let values = { ...defaultConfig, ...config }
+
+  if ('body' in values && values.body) {
+    values.body = JSON.stringify(values.body)
+  }
+
   // send fetch request
-  const data = await fetch(url, {
-    ...defaultConfig,
-    ...config
-  }).then(res => res.json());
+  const data = await fetch(url, values).then(res => res.json());
 
   return data
 }

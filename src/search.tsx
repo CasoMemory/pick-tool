@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Button, Form } from '@alifd/next'
-import useHooks from './hooks'
+import { Actions } from './interface'
 
 const { Item } = Form
 
@@ -19,9 +19,10 @@ const defaultData = {
   url: ''
 }
 
-const Search = () => {
+const Search = (props: { actions: Actions, state: any }) => {
+  const { actions } = props
   const [data, setData] = useState<DataProps>(defaultData)
-  const { dataSource, actions } = useHooks()
+  
 
   // input change
   const handleInput = (val: any, key: string) => {
