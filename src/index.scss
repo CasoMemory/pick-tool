@@ -40,4 +40,9 @@
 
 .has-top {
   margin-top: 12px;
+
+  .product-image {
+    width: 80px;
+    cursor: pointer;
+  }
 }

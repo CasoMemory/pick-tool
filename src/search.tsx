@@ -39,7 +39,12 @@ const Search = (props: { actions: Actions, state: any }) => {
 
   // search data
   const handleSearch = () => {
-    actions.fetchData(data)
+    const { keyword, url } = data
+
+    actions.fetchData({
+      url,
+      keyword: keyword?.trim().replace(' ', '+')
+    })
   }
 
   return (
