@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { request } from './utils/index'
+import { request } from '../utils/index'
 import { Message } from '@alifd/next'
 
 interface ParamsProps {
@@ -7,9 +7,9 @@ interface ParamsProps {
   url?: string;
 }
 
-const useHooks = () => {
-  const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false) 
+const useHook = () => {
+  const [dataSource, setDataSource] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchData = async (params: ParamsProps) => {
     const { keyword, url } = params
@@ -52,4 +52,4 @@ const useHooks = () => {
   }
 }
 
-export default useHooks
+export default useHook

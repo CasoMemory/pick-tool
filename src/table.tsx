@@ -4,12 +4,12 @@ import { Actions, State } from './interface'
 
 const { Column } = Table
 
-const List = (props: { actions: Actions, state: State }) => {
-  const { actions, state } = props
-
-  const handleDownload = () => {
-    actions.download()
-  }
+const List = (props: {
+  actions: Actions,
+  state: State,
+  items: Array<any>
+}) => {
+  const { actions, state, items } = props
 
   const renderCellImage = (val: string, index: number, record: any) => {
     return (
@@ -19,19 +19,40 @@ const List = (props: { actions: Actions, state: State }) => {
     )
   }
 
+  const renderMethod: any = {
+    renderCellImage
+  }
+
+  const handleDownload = () => {
+    actions.download()
+  }
+
+  const renderColumns = () => items.map(item => {
+    return (
+      <Column
+        key={item.dataIndex}
+        {...item}
+        cell={renderMethod[item.dataIndex]}
+      />
+    )
+  })
+
+  const columns = renderColumns()
+
   return (
     <div className='box has-top'>
       <div className='box-operate'>
-        <Button disabled={!state.dataSource.length} onClick={handleDownload}>download <Icon type='download' /></Button>
+        <Button
+          disabled={!state.dataSource.length}
+          onClick={handleDownload}
+        >
+          download <Icon type='download' />
+        </Button>
       </div>
-      <Table dataSource={state.dataSource} loading={state.loading}>
-        <Column title='Image' dataIndex='image' width={100} cell={renderCellImage} />
-        <Column title=' Asin' dataIndex='asin' width={120} />
-        <Column title='Title' dataIndex='title' />
-        <Column title='Review' dataIndex='review' width={100} />
-        <Column title='Price' dataIndex='price' width={100} />
-        <Column title='Shipping Cost' dataIndex='shipping' width={120} />
-        <Column title='Detail Desc' dataIndex='desc' width={220} />
+      <Table
+        loading={state.loading}
+        dataSource={state.dataSource}>
+        {columns}
       </Table>
     </div>
   )
