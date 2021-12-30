@@ -78,12 +78,13 @@ const calculate = (key: string) => {
           cell: 'renderCellImage'
         },
         {
-          dataIndex: 'title',
-          title: 'Title',
+          dataIndex: 'detailUrl',
+          title: 'DetailUrl',
+          cell: 'renderCellLink'
         },
         {
-          dataIndex: 'price',
-          title: 'Price',
+          dataIndex: 'itemCode',
+          title: 'ItemCode',
           width: 200
         },
         {

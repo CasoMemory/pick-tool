@@ -17,6 +17,7 @@ const App = () => {
 
   const handleChangeTab = (val: string) => {
     setActiveKey(val)
+    actions.setDataSource([])
   }
 
   const { search, list } = calculate(activeKey)
@@ -32,6 +33,7 @@ const App = () => {
         <Item title='Giga Pick' key='giga' />
       </Tab>
       <Search
+        tenant={activeKey}
         items={search}
         actions={actions}
         state={{ ...others }}

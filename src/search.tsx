@@ -23,9 +23,10 @@ const COMP_MAP: any = {
 const Search = (props: {
   actions: Actions,
   state: any,
+  tenant: string,
   items: Array<any>
 }) => {
-  const { actions, items } = props
+  const { actions, items, tenant } = props
   const [data, setData] = useState<any>(defaultData) 
 
   // input change
@@ -48,7 +49,8 @@ const Search = (props: {
     actions.fetchData({
       url,
       keyword: keyword?.trim().replace(' ', '+'),
-      cookie
+      cookie,
+      tenant
     })
   }
 

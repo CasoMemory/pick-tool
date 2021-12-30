@@ -13,14 +13,17 @@ const List = (props: {
 
   const renderCellImage = (val: string, index: number, record: any) => {
     return (
-      <a href={record.detailUrl} target='_blank'>
-        <img className='product-image' src={val} key={index} style={{ width: 80 }} />
+      <a href={record.detailUrl} target='_blank' key={index}>
+        <img className='product-image' src={val} key={index} style={{ width: '100%' }} />
       </a>
     )
   }
 
+  const renderCellLink = (val: string, index: number) => <a key={index} target='_blank' href={val}>{val}</a>
+
   const renderMethod: any = {
-    renderCellImage
+    renderCellImage,
+    renderCellLink
   }
 
   const handleDownload = () => {
@@ -32,7 +35,7 @@ const List = (props: {
       <Column
         key={item.dataIndex}
         {...item}
-        cell={renderMethod[item.dataIndex]}
+        cell={renderMethod[item.cell]}
       />
     )
   })

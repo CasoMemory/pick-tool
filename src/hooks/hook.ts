@@ -47,7 +47,8 @@ const useHook = () => {
     dataSource,
     actions: {
       fetchData,
-      download
+      download,
+      setDataSource
     }
   }
 }
