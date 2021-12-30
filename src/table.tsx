@@ -7,9 +7,10 @@ const { Column } = Table
 const List = (props: {
   actions: Actions,
   state: State,
+  tenant: string;
   items: Array<any>
 }) => {
-  const { actions, state, items } = props
+  const { actions, state, items, tenant } = props
 
   const renderCellImage = (val: string, index: number, record: any) => {
     return (
@@ -27,7 +28,7 @@ const List = (props: {
   }
 
   const handleDownload = () => {
-    actions.download()
+    actions.download(tenant)
   }
 
   const renderColumns = () => items.map(item => {

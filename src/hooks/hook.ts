@@ -30,11 +30,14 @@ const useHook = () => {
     setLoading(false)
   }
 
-  const download = async () => {
+  const download = async (tenant: string) => {
     const data = await request({
       url: `/download`,
       method: 'POST',
-      data: { data: dataSource }
+      data: {
+        data: dataSource,
+        tenant
+      }
     })
 
     const type = data.success ? 'success' : 'error'

@@ -132,7 +132,7 @@ class Server {
       fs.mkdirSync(targetDir)
     }
 
-    XLSX.writeFile(wb, `${targetDir}/amazon_product.xlsx`)
+    XLSX.writeFile(wb, `${targetDir}/${body.tenant}_product.xlsx`)
 
     return { data: true }
   }

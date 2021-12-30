@@ -40,6 +40,7 @@ const App = () => {
       />
       <List
         items={list}
+        tenant={activeKey}
         actions={actions}
         state={{ ...others }}
       />
