@@ -74,8 +74,13 @@ const calculate = (key: string) => {
         {
           dataIndex: 'image',
           title: 'Image',
-          width: 200,
+          width: 100,
           cell: 'renderCellImage'
+        },
+        {
+          dataIndex: 'qty',
+          title: 'Qty',
+          width: 200
         },
         {
           dataIndex: 'detailUrl',
@@ -85,11 +90,6 @@ const calculate = (key: string) => {
         {
           dataIndex: 'itemCode',
           title: 'ItemCode',
-          width: 200
-        },
-        {
-          dataIndex: 'qty',
-          title: 'Qty',
           width: 200
         }
       ]
