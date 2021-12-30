@@ -9,29 +9,21 @@ interface ParamsProps {
 
 const useHooks = () => {
   const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false)
-
-  const formatString = (data: any) => {
-    const arr: Array<string> = []
-
-    Object.keys(data).forEach(key => {
-      data[key] && arr.push(`${key}=${data[key]}`)
-    })
-
-    return arr.length > 0 ? `?` + arr.join('&') : ''
-  } 
+  const [loading, setLoading] = useState(false) 
 
   const fetchData = async (params: ParamsProps) => {
     const { keyword, url } = params
 
     if (!keyword && !url) return
 
-    const search = formatString(params)
-
     setLoading(true)
 
     // execute
-    const data = await request({ url: `/fetchData${search}` })
+    const data = await request({
+      url: '/fetchData',
+      method: 'POST',
+      data: params
+    })
 
     !data.success && Message.error(data.message)
     setDataSource(data.data || [])
@@ -42,7 +34,7 @@ const useHooks = () => {
     const data = await request({
       url: `/download`,
       method: 'POST',
-      body: { data: dataSource }
+      data: { data: dataSource }
     })
 
     const type = data.success ? 'success' : 'error'

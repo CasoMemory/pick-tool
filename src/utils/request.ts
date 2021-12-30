@@ -24,7 +24,7 @@ interface RequestProps {
   headers?: {
     'Content-Type'?: string;
   },
-  body?: any;
+  data?: any;
 }
 
 export default async (params: RequestProps) => {
@@ -36,14 +36,12 @@ export default async (params: RequestProps) => {
     headers: { 'Content-Type': 'application/json' }
   }
 
-  let values = { ...defaultConfig, ...config }
-
-  if ('body' in values && values.body) {
-    values.body = JSON.stringify(values.body)
-  }
-
   // send fetch request
-  const data = await fetch(url, values).then(res => res.json());
+  const data = await fetch(url, {
+    ...defaultConfig,
+    ...config,
+    body: 'data' in config && config.data ? JSON.stringify(config.data) : undefined
+  }).then(res => res.json());
 
   return data
 }

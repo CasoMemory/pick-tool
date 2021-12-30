@@ -19,12 +19,22 @@ const format = (data) => {
 class Server {
   context = null
 
-  queryData = async (params) => {
+  queryData = async () => {
+    const { body } = this.context
+
     const domain = 'https://www.amazon.com'
-    const url = params.url ? params.url : `${domain}/s?k=${params.keyword}&sprefix=${params.keyword}&ref=glow_cls`
+    const url = body.url ? body.url : `${domain}/s?k=${body.keyword}&sprefix=${body.keyword}&ref=glow_cls`
+    const config = {}
+
+    if ('cookie' in body && body.cookie) {
+      // @ts-ignore
+      config.headers = {
+        'Cookie': body.cookie
+      }
+    }
 
     // fetch page data
-    const data = await axios.get(url)
+    const data = await axios.get(url, config)
 
     const $ = htmlParse.parse(data.data)
 
@@ -34,10 +44,11 @@ class Server {
     childrens.forEach(ele => {
       const root = ele.childNodes[0].querySelector('div.s-include-content-margin')
       const target = root.querySelector('span.rush-component')
-      const href = decodeURIComponent(target.querySelector('a.a-link-normal').getAttribute('href'))
+
+      const href = decodeURIComponent(target.querySelector('a.a-link-normal')?.getAttribute('href') || '')
       const detailUrl = `${domain}${decodeURIComponent(href)}`
 
-      const image = target.querySelector('img.s-image').getAttribute('src')
+      const image = target.querySelector('img.s-image')?.getAttribute('src')
 
       const title = root.querySelector('div.s-title-instructions-style h2 a span').text
 
@@ -45,9 +56,9 @@ class Server {
 
       const review = root.querySelector('div.a-spacing-top-micro div.a-size-small a span.a-size-base')?.text
 
-      const asin = detailUrl.split('/dp/')[1].split('/')[0]
+      const asin = detailUrl.split('/dp/')[1]?.split('/')[0]
 
-      const shipping = root.querySelector('div.a-spacing-top-micro div.s-align-children-center span')?.text
+      const shippings = root.querySelectorAll('div.a-spacing-top-micro div.s-align-children-center div.a-row span').map(ele => ele.text)
 
       result.push({
         detailUrl,
@@ -55,7 +66,7 @@ class Server {
         title,
         review,
         price,
-        shipping,
+        shipping: shippings.pop(),
         asin
       })
     })
@@ -98,7 +109,7 @@ class Server {
       return format(0);
     }
 
-    const data = await this[path](params)
+    const data = await this[path]()
 
     // return response
     res.write(JSON.stringify(format(data)))
@@ -119,7 +130,7 @@ class Server {
     })
 
     req.on('end', () => {
-      console.log('data str', dataStr)
+      console.log('body data finished')
 
       try {
         this.context.body = JSON.parse(dataStr)

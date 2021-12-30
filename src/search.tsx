@@ -12,17 +12,19 @@ const formItemLayout = {
 interface DataProps {
   keyword?: string;
   url?: string;
+  cookie?: string;
 }
 
 const defaultData = {
   keyword: '',
-  url: ''
+  url: '',
+  cookie: '',
 }
 
 const Search = (props: { actions: Actions, state: any }) => {
   const { actions } = props
   const [data, setData] = useState<DataProps>(defaultData)
-  
+
 
   // input change
   const handleInput = (val: any, key: string) => {
@@ -39,17 +41,25 @@ const Search = (props: { actions: Actions, state: any }) => {
 
   // search data
   const handleSearch = () => {
-    const { keyword, url } = data
+    const { keyword, url, cookie } = data
 
     actions.fetchData({
       url,
-      keyword: keyword?.trim().replace(' ', '+')
+      keyword: keyword?.trim().replace(' ', '+'),
+      cookie
     })
   }
 
   return (
     <div className='box search-form'>
       <Form {...formItemLayout}>
+        <Item label='Cookie'>
+          <Input.TextArea
+            value={data.cookie}
+            onChange={val => { handleInput(val, 'cookie') }}
+            placeholder='please input Cookie'
+          />
+        </Item>
         <Item label='Url'>
           <Input
             hasClear
