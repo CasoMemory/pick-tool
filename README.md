@@ -3,11 +3,12 @@
 - This a web tool to get the amazone search list products properties that such as image url, detail url, title, asin number, review number, price, shipping cost.
 
 # Features
-- search and show data by keyword, url
+- search and show data by keyword, url. If don't input the Cookie, the query logic will execute as default.
 - download the table data and create the excel file at local
 - example picture:
+  ![avatar](./public/media/image.png)
 
-# Project Structure
+# Project Tech Structure
 - Web Page
   - Webpack5
   - TypeScript

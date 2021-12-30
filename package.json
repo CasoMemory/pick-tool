@@ -1,6 +1,6 @@
 {
   "name": "pick-ui",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "the pick tool web project",
   "main": "index.tsx",
   "scripts": {
