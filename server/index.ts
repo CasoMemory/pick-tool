@@ -6,6 +6,7 @@ const XLSX = require('xlsx')
 const fs = require('fs')
 const Path = require('path')
 const OS = require('os')
+const stringRandom = require('string-random')
 
 const format = ({ data, message }) => {
   // error handle
@@ -118,7 +119,7 @@ class Server {
 
     // create ws
     const ws = XLSX.utils.json_to_sheet(body.data)
-    const targetDir = Path.join(OS.homedir(), 'Desktop/amazon_analyse')
+    const targetDir = Path.join(OS.homedir(), `Desktop/${body.tenant}_analyse`)
 
     // create wb
     const wb = XLSX.utils.book_new()
@@ -132,7 +133,7 @@ class Server {
       fs.mkdirSync(targetDir)
     }
 
-    XLSX.writeFile(wb, `${targetDir}/${body.tenant}_product.xlsx`)
+    XLSX.writeFile(wb, `${targetDir}/${body.tenant}_${stringRandom()}.xlsx`)
 
     return { data: true }
   }
