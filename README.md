@@ -1,8 +1,9 @@
 # Pick Data Tool
 
-- This a web tool to get the amazone search list products properties that such as image url, detail url, title, asin number, review number, price, shipping cost.
+- This a web tool to get the amazone web site search list products properties that such as image url, detail url, title, asin number, review number, price, shipping cost.
 
 # Features
+- support to fetch the amazon web site product list data
 - search and show data by keyword, url. If don't input the Cookie, the query logic will execute as default.
 - download the table data and create the excel file at local
 - example picture:

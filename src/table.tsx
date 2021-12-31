@@ -4,34 +4,59 @@ import { Actions, State } from './interface'
 
 const { Column } = Table
 
-const List = (props: { actions: Actions, state: State }) => {
-  const { actions, state } = props
-
-  const handleDownload = () => {
-    actions.download()
-  }
+const List = (props: {
+  actions: Actions,
+  state: State,
+  tenant: string;
+  items: Array<any>
+}) => {
+  const { actions, state, items, tenant } = props
 
   const renderCellImage = (val: string, index: number, record: any) => {
     return (
-      <a href={record.detailUrl} target='_blank'>
-        <img className='product-image' src={val} key={index} style={{ width: 80 }} />
+      <a href={record.detailUrl} target='_blank' key={index}>
+        <img className='product-image' src={val} key={index} style={{ width: '100%' }} />
       </a>
     )
   }
 
+  const renderCellLink = (val: string, index: number) => <a key={index} target='_blank' href={val}>{val}</a>
+
+  const renderMethod: any = {
+    renderCellImage,
+    renderCellLink
+  }
+
+  const handleDownload = () => {
+    actions.download(tenant)
+  }
+
+  const renderColumns = () => items.map(item => {
+    return (
+      <Column
+        key={item.dataIndex}
+        {...item}
+        cell={renderMethod[item.cell]}
+      />
+    )
+  })
+
+  const columns = renderColumns()
+
   return (
     <div className='box has-top'>
       <div className='box-operate'>
-        <Button disabled={!state.dataSource.length} onClick={handleDownload}>download <Icon type='download' /></Button>
+        <Button
+          disabled={!state.dataSource.length}
+          onClick={handleDownload}
+        >
+          download <Icon type='download' />
+        </Button>
       </div>
-      <Table dataSource={state.dataSource} loading={state.loading}>
-        <Column title='Image' dataIndex='image' width={100} cell={renderCellImage} />
-        <Column title=' Asin' dataIndex='asin' width={120} />
-        <Column title='Title' dataIndex='title' />
-        <Column title='Review' dataIndex='review' width={100} />
-        <Column title='Price' dataIndex='price' width={100} />
-        <Column title='Shipping Cost' dataIndex='shipping' width={120} />
-        <Column title='Detail Desc' dataIndex='desc' width={220} />
+      <Table
+        loading={state.loading}
+        dataSource={state.dataSource}>
+        {columns}
       </Table>
     </div>
   )

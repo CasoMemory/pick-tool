@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { request } from './utils/index'
+import { request } from '../utils/index'
 import { Message } from '@alifd/next'
 
 interface ParamsProps {
@@ -7,9 +7,9 @@ interface ParamsProps {
   url?: string;
 }
 
-const useHooks = () => {
-  const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false) 
+const useHook = () => {
+  const [dataSource, setDataSource] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchData = async (params: ParamsProps) => {
     const { keyword, url } = params
@@ -30,11 +30,14 @@ const useHooks = () => {
     setLoading(false)
   }
 
-  const download = async () => {
+  const download = async (tenant: string) => {
     const data = await request({
       url: `/download`,
       method: 'POST',
-      data: { data: dataSource }
+      data: {
+        data: dataSource,
+        tenant
+      }
     })
 
     const type = data.success ? 'success' : 'error'
@@ -47,9 +50,10 @@ const useHooks = () => {
     dataSource,
     actions: {
       fetchData,
-      download
+      download,
+      setDataSource
     }
   }
 }
 
-export default useHooks
+export default useHook
