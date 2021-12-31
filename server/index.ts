@@ -44,29 +44,6 @@ class Server {
 
     try {
       switch (body.tenant) {
-        case 'giga':
-          {
-            childrens = $.querySelector('#product_all_list').querySelectorAll('div.product-show')
-
-            childrens.forEach(ele => {
-              const detailUrl = ele.querySelector('.product-image a')?.getAttribute('href')
-
-              const style = ele.querySelector('.product-image .con-img .img-responsive').getAttribute('style')
-              const image = style.split(`('`)[1].split(`')`)[0]
-
-              const itemCode = ele.querySelector('.product-information .code-price-wrapper .code-group span:last-child')?.childNodes[0]?._rawText
-              const text = ele.querySelector('.product-information .code-price-wrapper .qty-group span')?.childNodes[0]?._rawText
-              const qty = text?.split('&nbsp;')[1]
-
-              result.push({
-                detailUrl,
-                image,
-                itemCode,
-                qty
-              })
-            })
-          }
-          break
         case 'amazon':
           {
             childrens = $.querySelector('.s-main-slot').querySelectorAll('.s-widget-spacing-small')
@@ -139,7 +116,7 @@ class Server {
   }
 
   excute = async () => {
-    const { res, path, params } = this.context
+    const { res, path } = this.context
 
     // set up header
     res.writeHead(200, { 'Content-Type': 'application/json' });

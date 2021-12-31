@@ -30,7 +30,6 @@ const App = () => {
         activeKey={activeKey}
         onChange={handleChangeTab}>
         <Item title='Amazon Pick' key='amazon' />
-        <Item title='Giga Pick' key='giga' />
       </Tab>
       <Search
         tenant={activeKey}

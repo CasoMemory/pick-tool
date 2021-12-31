@@ -54,45 +54,6 @@ const calculate = (key: string) => {
           width: 120
         }
       ]
-    },
-    giga: {
-      search: [
-        {
-          label: 'Cookie',
-          key: 'cookie',
-          placeholder: 'Please input cookie',
-          type: 'textarea'
-        },
-        {
-          label: 'Url',
-          key: 'url',
-          placeholder: 'Please input url',
-          type: 'input'
-        }
-      ],
-      list: [
-        {
-          dataIndex: 'image',
-          title: 'Image',
-          width: 100,
-          cell: 'renderCellImage'
-        },
-        {
-          dataIndex: 'qty',
-          title: 'Qty',
-          width: 200
-        },
-        {
-          dataIndex: 'detailUrl',
-          title: 'DetailUrl',
-          cell: 'renderCellLink'
-        },
-        {
-          dataIndex: 'itemCode',
-          title: 'ItemCode',
-          width: 200
-        }
-      ]
     }
   }
 
